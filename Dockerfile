@@ -20,6 +20,8 @@ ADD supervisor.conf /etc/supervisor/conf.d/wordpress.conf
 ADD http://wordpress.org/latest.tar.gz wordpress.tar.gz
 RUN tar xzf wordpress.tar.gz -C $APP_ROOT --strip-components 1
 RUN rm wordpress.tar.gz
+RUN a2enmod rewrite
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
 EXPOSE 80
 RUN rm /usr/sbin/policy-rc.d
